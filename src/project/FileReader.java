@@ -17,8 +17,9 @@ public class FileReader {
     public Glc readFile(){
         Glc grammar = new Glc();
         while(sc.hasNextLine()){  
-            Production prod = new Production(sc.nextLine()); 
-        }  
+            Production prod = new Production(sc.nextLine());
+            grammar.insertProduction(prod); 
+        }
         sc.close(); 
         return grammar;
     }
