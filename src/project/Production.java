@@ -6,8 +6,11 @@ public class Production {
 
     public Production(){}
 
-    public Production(String leftSide, String[] rightSide){
-        this.leftSide = leftSide;
-        this.rightSide = rightSide;
+    public Production(String prod){
+        explodeProduction(prod);
+    }
+
+    public void explodeProduction(String production){
+        
     }
 }
