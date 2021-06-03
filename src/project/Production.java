@@ -1,3 +1,5 @@
+package project;
+
 public class Production {
     private String leftSide;
     private String[] rightSide;
