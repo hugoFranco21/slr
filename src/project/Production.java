@@ -12,6 +12,12 @@ public class Production {
         this.rightSide = new LinkedList<>();
     }
 
+    public Production(String leftSide, String rightSide){
+        this.leftSide = leftSide;
+        this.rightSide = new LinkedList<>();
+        this.rightSide.add(rightSide);
+    }
+
     public Production(String prod) throws NotCorrectFormatException{
         this.rightSide = new LinkedList<>();
         explodeProduction(prod);
