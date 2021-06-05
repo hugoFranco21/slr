@@ -2,7 +2,15 @@ package project;
 
 public class Main {
     public static void main(String[] args){
-        System.out.println("Hello");
-        System.out.println(args[0]);
+        try {
+            FileReader input = new FileReader(args[0]);
+            Glc grammar = input.readFile();
+            System.out.println(grammar.toString());
+            SLRClosure slrc = new SLRClosure(grammar);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
     }
 }
