@@ -102,5 +102,13 @@ public class Production {
     public LinkedList<String> getRightSide(){
         return this.rightSide;
     }
-
+    
+    public String getElementRightOfSymbol(String s){
+        Integer index = this.getRightSide().indexOf(s);
+        if(index == this.getRightSide().size() - 1){
+            return null;
+        } else {
+            return this.getRightSide().get(index + 1);
+        }
+    }
 }

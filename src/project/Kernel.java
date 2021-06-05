@@ -13,5 +13,9 @@ public class Kernel {
         productions.add(prod);
     }
 
+    public HashSet<ExtendedProduction> getProductions(){
+        return this.productions;
+    }
+
     
 }

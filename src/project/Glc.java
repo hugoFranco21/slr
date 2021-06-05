@@ -3,6 +3,7 @@ package project;
 import java.util.HashSet;
 
 import project.exceptions.IncorrectGrammarException;
+import project.exceptions.NotAnElementException;
 
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ public class Glc {
     private HashMap<Integer, Production> productions;
     private HashSet<String> nonTerminals;
     private HashSet<String> terminals;
+    private HashMap<String, HashSet<String>> first, follows;
     private String startSymbol = null;
 
     /**
@@ -110,6 +112,106 @@ public class Glc {
         }
     }
 
+    public HashSet<Production> getProductionStartingWith(String s){
+        HashSet<Production> hs = new HashSet<>();
+        for(Production p : this.getProductions().values()){
+            if(p.getLeftSide().equals(s)){
+                hs.add(p);
+            }
+        }
+        return hs;
+    }
+
+    public HashSet<Production> getProductionsWithSymbolOnRight(String s){
+        HashSet<Production> hs = new HashSet<>();
+        for(Production p : this.getProductions().values()){
+            if(p.getRightSide().contains(s)){
+                hs.add(p);
+            }
+        }
+        return hs;
+    }
+
+    public void computeFirst() throws NotAnElementException{
+        this.first = new HashMap<>();
+        for(String s : this.nonTerminals){
+            this.first.put(s, null);
+        }
+        for(String s : this.nonTerminals){
+            HashSet<String> aux = new HashSet<>();
+            for(Production p : this.getProductionStartingWith(s)){
+                aux.addAll(this.getFirst(p.getRightSide().getFirst()));
+            }
+            this.first.put(s, aux);
+        }
+    }
+    
+    public HashSet<String> getFirst(String s) throws NotAnElementException {
+        if(this.nonTerminals.contains(s)){
+            if(this.first.get(s) != null){
+                return this.first.get(s);
+            } else {
+                HashSet<String> aux = new HashSet<>();
+                for(Production p : this.getProductionStartingWith(s)){
+                    aux.addAll(this.getFirst(p.getRightSide().getFirst()));
+                }
+                return aux;
+            }
+        } else if(this.terminals.contains(s)){
+            HashSet<String> hs = new HashSet<String>();
+            hs.add(s);
+            return hs;
+        } else {
+            throw new NotAnElementException("El string " + s + " no es parte de la gramática");
+        }
+    }
+
+    public void computeFollows() throws NotAnElementException{
+        this.follows = new HashMap<>();
+        for(String s : this.nonTerminals){
+            this.follows.put(s, null);
+        }
+        HashSet<String> hs = new HashSet<>();
+        hs.add("$");
+        this.follows.put(this.startSymbol, hs);
+        for(String s : this.nonTerminals){
+            HashSet<String> aux;
+            if(this.follows.get(s) == null){
+                aux = new HashSet<>();
+            } else {
+                aux = this.follows.get(s);
+            }
+            for(Production p : this.getProductionsWithSymbolOnRight(s)){
+                if(p.getElementRightOfSymbol(s) == null){
+                    aux.addAll(this.getFollows(p.getLeftSide()));
+                } else {
+                    aux.addAll(this.getFirst(p.getElementRightOfSymbol(s)));
+                }
+            }
+            this.follows.put(s, aux);
+        }
+    }
+
+    public HashSet<String> getFollows(String s) throws NotAnElementException {
+        if(this.nonTerminals.contains(s)){
+            if(this.follows.get(s) != null){
+                return this.follows.get(s);
+            } else {
+                HashSet<String> aux = new HashSet<>();
+                for(Production p : this.getProductionsWithSymbolOnRight(s)){
+                    if(p.getElementRightOfSymbol(s) == null){
+                        aux.addAll(this.getFollows(p.getLeftSide()));
+                    } else {
+                        aux.addAll(this.getFirst(p.getElementRightOfSymbol(s)));
+                    }
+                }
+                return aux;
+            }
+        } else {
+            throw new NotAnElementException("El string " + s + " no es parte de la gramática");
+        }
+    }
+
     /**
      * This methods converts the grammar to a String
      */
@@ -128,6 +230,22 @@ public class Glc {
         bobTheBuilder.append("Non terminals: \n");
         for(String s : this.nonTerminals){
             bobTheBuilder.append(s + "\n");
+        }
+        bobTheBuilder.append("First: \n");
+        for(String s : this.first.keySet()){
+            bobTheBuilder.append(s + " = { ");
+            for(String aux : this.first.get(s)){
+                bobTheBuilder.append(aux + ", ");
+            }
+            bobTheBuilder.append(" } \n");
+        }
+        bobTheBuilder.append("Follows: \n");
+        for(String s : this.follows.keySet()){
+            bobTheBuilder.append(s + " = { ");
+            for(String aux : this.follows.get(s)){
+                bobTheBuilder.append(aux + ", ");
+            }
+            bobTheBuilder.append(" } \n");
         }
         return bobTheBuilder.toString();
     }

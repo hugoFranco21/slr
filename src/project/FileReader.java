@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.util.Scanner;
 
 import project.exceptions.IncorrectGrammarException;
+import project.exceptions.NotAnElementException;
 import project.exceptions.NotCorrectFormatException;
 public class FileReader {
 
@@ -27,8 +28,9 @@ public class FileReader {
      * @return Glc
      * @throws NotCorrectFormatException If the production is not of the form S -> A
      * @throws IncorrectGrammarException If the grammar is missing a core element
+     * @throws NotAnElementException
      */
-    public Glc readFile() throws NotCorrectFormatException, IncorrectGrammarException {
+    public Glc readFile() throws NotCorrectFormatException, IncorrectGrammarException, NotAnElementException {
         Glc grammar = new Glc();
         while(sc.hasNextLine()){  
             Production prod = new Production(sc.nextLine());
@@ -47,6 +49,8 @@ public class FileReader {
             }
         }
         grammar.checkValidity();
+        grammar.computeFirst();
+        grammar.computeFollows();
         grammar.insertProduction(0, new Production(grammar.getStartSymbol() + "'", grammar.getStartSymbol()));
         return grammar;
     }
