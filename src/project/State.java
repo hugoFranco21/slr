@@ -96,6 +96,7 @@ public class State {
     @Override
     public String toString(){
         StringBuilder bobTheBuilder = new StringBuilder();
+        bobTheBuilder.append("State number = " + this.numb.toString() + "\n");
         bobTheBuilder.append((this.kernel != null ? kernel.toString() : "\n"));
         bobTheBuilder.append((this.closure != null ? closure.toString() : "\n"));
         bobTheBuilder.append("This state is " + (this.isAcceptance ? "" : "NOT ") + "of acceptance\n");

@@ -150,4 +150,13 @@ public class Production {
             return this.getRightSide().get(index + 1);
         }
     }
+
+    public static Production copyFromExtended(ExtendedProduction ex){
+        Production p = new Production();
+        ExtendedProduction origin = ExtendedProduction.copy(ex);
+        p.setLeftSide(origin.getLeftSide());
+        p.setRightSide(origin.getRightSide());
+        p.getRightSide().removeLast();
+        return p;
+    }
 }

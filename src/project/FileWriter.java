@@ -29,6 +29,7 @@ public class FileWriter {
         StringBuilder bobTheBuilder = new StringBuilder();
         bobTheBuilder.append(this.getHeader());
         bobTheBuilder.append(this.slrcTable);
+        bobTheBuilder.append(this.lrTable);
         bobTheBuilder.append(this.getFooter());
         byte[] strToBytes = bobTheBuilder.toString().getBytes();
         outputStream.write(strToBytes);

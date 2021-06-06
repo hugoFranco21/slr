@@ -1,6 +1,7 @@
 package project;
 
 import java.util.HashSet;
+import java.util.Map;
 
 import project.exceptions.IncorrectGrammarException;
 import project.exceptions.NotAnElementException;
@@ -248,6 +249,20 @@ public class Glc {
         } else {
             throw new NotAnElementException("El string " + s + " no es parte de la gramática");
         }
+    }
+
+    /**
+     * This method searches for the number of the production in the hashmap and returns the index
+     * @param prod Production
+     * @return Integer
+     */
+    public Integer productionNumber(Production prod){
+        for(Map.Entry<Integer, Production> p : this.productions.entrySet()){
+            if(p.getValue().toString().equals(prod.toString())){
+                return p.getKey();
+            }
+        }
+        return -1;
     }
 
     /**

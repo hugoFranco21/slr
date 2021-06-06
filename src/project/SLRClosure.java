@@ -172,6 +172,14 @@ public class SLRClosure {
         return -1;
     }
 
+    public HashMap<Integer, State> getStates(){
+        return this.states;
+    }
+
+    public LinkedList<GoTo> getGoTos(){
+        return this.goTo;
+    }
+
     /**
      * Helper method to print the GoTo LinkedList
      * @return String
