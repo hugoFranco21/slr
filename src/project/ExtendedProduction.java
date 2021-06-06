@@ -78,4 +78,16 @@ public class ExtendedProduction {
         if(this.isPeriodLast()) return null;
         return this.getRightSide().get(this.getPeriodIndex() + 1);
     }
+
+    @Override
+    public String toString(){
+        StringBuilder bobTheBuilder = new StringBuilder();
+        bobTheBuilder.append(leftSide);
+        bobTheBuilder.append(" -> ");
+        for(String s: rightSide){
+            bobTheBuilder.append(s + " ");
+        }
+        return bobTheBuilder.toString();
+    }
+
 }

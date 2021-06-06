@@ -3,6 +3,7 @@ package project;
 public class State {
     private Kernel kernel;
     private Closure closure;
+    private Boolean isAcceptance;
 
     public State(){}
 
@@ -22,6 +23,14 @@ public class State {
         this.closure = c;
     }
 
+    public Boolean getIsAcceptance(){
+        return this.isAcceptance;
+    }
+
+    public void setIsAcceptance(Boolean isAcceptance){
+        this.isAcceptance = isAcceptance;
+    }
+
     public Boolean equals(State s){
         if(this.kernel.getProductions().size() == s.getKernel().getProductions().size()){
             for(ExtendedProduction ex : this.kernel.getProductions()){
@@ -30,6 +39,15 @@ public class State {
             }
         }
         return true;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder bobTheBuilder = new StringBuilder();
+        bobTheBuilder.append(kernel.toString());
+        bobTheBuilder.append(closure.toString());
+        bobTheBuilder.append("This state is " + (this.isAcceptance ? "" : "NOT ") + "of acceptance");
+        return bobTheBuilder.toString();
     }
 
 }

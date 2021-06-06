@@ -1,21 +1,37 @@
 package project;
 
 public class GoTo {
-    private Integer from;
-    private String to;
+    private Integer fromState;
+    private String symbol;
+    private Integer destinationState;
 
     public GoTo(){}
 
-    public GoTo(Integer from, String to){
-        this.from = from;
-        this.to = to;
+    public GoTo(Integer fromState, String symbol){
+        this.fromState = fromState;
+        this.symbol = symbol;
     }
 
-    public Integer getFrom(){
-        return this.from;
+    public Integer getFromState(){
+        return this.fromState;
     }
 
-    public String getTo(){
-        return this.to;
+    public String getSymbol(){
+        return this.symbol;
+    }
+
+    public Integer getDestinationState(){
+        return this.destinationState;
+    }
+
+    public void setDestinationState(Integer destinationState){
+        this.destinationState = destinationState;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder bobTheBuilder = new StringBuilder();
+        bobTheBuilder.append("GoTo(" + this.fromState.toString() + ", " + this.symbol + ") = " + this.getDestinationState().toString() + "\n");
+        return bobTheBuilder.toString();
     }
 }
