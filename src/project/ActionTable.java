@@ -32,7 +32,7 @@ public class ActionTable {
                         this.insertInnerHashMap(st.getNumb(), "$", "acc");
                     } else {
                         for(String s : this.grammar.getFollows(this.grammar.getProductions().get(ruleNumber).getLeftSide())){
-                            this.insertInnerHashMap(st.getNumb(), s, "R" + ruleNumber.toString());
+                            this.insertInnerHashMap(st.getNumb(), s, "r" + ruleNumber.toString());
                         }
                     }
                 }
@@ -41,7 +41,7 @@ public class ActionTable {
         for(GoTo g : goTo){
             if(grammar.getTerminals().contains(g.getSymbol())){
                 if(!this.states.get(g.getFromState()).getIsAcceptance()){
-                    this.insertInnerHashMap(g.getFromState(), g.getSymbol(), "S" + g.getDestinationState().toString());
+                    this.insertInnerHashMap(g.getFromState(), g.getSymbol(), "s" + g.getDestinationState().toString());
                 } 
             } 
         }
@@ -73,10 +73,23 @@ public class ActionTable {
         bobTheBuilder.append("<td style=\"border: 1px solid black; color: blue\">");
         bobTheBuilder.append(state.toString());
         bobTheBuilder.append("</td>");
-        for(Map.Entry<Integer, HashMap<String, String>> h : this.getActions().entrySet()){
-            Integer aux = h.getKey();
-            for(Map.Entry<String, String> ss : h.getValue().entrySet()){
-                bobTheBuilder.append(aux.toString() + ": " + ss.getKey() + " = " + ss.getValue() + "\n");
+        for(String s: this.grammar.getTerminals()){
+            if(this.actions.get(state).containsKey(s)){
+                if(this.actions.get(state).get(s).startsWith("s")){
+                    bobTheBuilder.append("<td style=\"border: 1px solid black;\">");
+                    bobTheBuilder.append("<span style=\"color: black\">s</span>");
+                    bobTheBuilder.append("<span style=\"color: blue\">" + this.actions.get(state).get(s).charAt(this.actions.get(state).get(s).length() - 1) + "</span>");
+                    bobTheBuilder.append("</td>");
+                } else if(this.actions.get(state).get(s).startsWith("r")){
+                    bobTheBuilder.append("<td style=\"border: 1px solid black;\">");
+                    bobTheBuilder.append("<span style=\"color: black\">r</span>");
+                    bobTheBuilder.append("<sub style=\"color: green\">" + this.actions.get(state).get(s).charAt(this.actions.get(state).get(s).length() - 1) + "</sub>");
+                    bobTheBuilder.append("</td>");
+                } else {
+                    bobTheBuilder.append("<td style=\"border: 1px solid black; color: green;\">acc</td>");
+                }
+            } else {
+                bobTheBuilder.append("<td style=\"border: 1px solid black;\"></td>");
             }
         }
         return bobTheBuilder.toString();

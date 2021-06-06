@@ -54,4 +54,21 @@ public class GoToTable {
         return bobTheBuilder.toString();
     }
 
+    public HashMap<Integer, State> getStates(){
+        return this.states;
+    }
+
+    public String toHTML(Integer state){
+        StringBuilder bobTheBuilder = new StringBuilder();
+        for(String s: this.grammar.getNonTerminals()){
+            if(this.goTos.get(state).containsKey(s)){
+                bobTheBuilder.append("<td style=\"color: blue; border: 1px solid black;\">" + this.goTos.get(state).get(s) + "</td>");
+            } else {
+                bobTheBuilder.append("<td style=\"border: 1px solid black;\"></td>");
+            }
+        }
+        bobTheBuilder.append("</tr>");
+        return bobTheBuilder.toString();
+    }
+
 }

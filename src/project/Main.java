@@ -8,12 +8,12 @@ public class Main {
             System.out.println(grammar.toString());
             SLRClosure slrc = new SLRClosure(grammar);
             System.out.println(slrc.toString());
-            grammar.getNonTerminals().add("$");
+            grammar.getTerminals().add("$");
             ActionTable action = new ActionTable(grammar, slrc.getStates(), slrc.getGoTos());
             action.createActionTable();
             GoToTable goTo = new GoToTable(grammar, slrc.getStates(), slrc.getGoTos());
             goTo.createGoToTable();
-            LRTable lrTable = new LRTable(g, goTo, action);
+            LRTable lrTable = new LRTable(grammar, goTo, action);
             FileWriter fileWriter = new FileWriter(slrc.toHTML(), lrTable.toHTMl());
             fileWriter.writeFile();
         } catch (Exception e) {
