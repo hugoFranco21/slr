@@ -3,8 +3,10 @@
 
 # Log file
 *.log
-
+.html
 sources.txt
+
+/output
 
 /build
 # BlueJ files

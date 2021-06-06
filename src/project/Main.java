@@ -8,6 +8,8 @@ public class Main {
             System.out.println(grammar.toString());
             SLRClosure slrc = new SLRClosure(grammar);
             System.out.println(slrc.toString());
+            FileWriter fileWriter = new FileWriter("slrcTable", "lrTabl");
+            fileWriter.writeFile();
         } catch (Exception e) {
             e.printStackTrace();
             return;

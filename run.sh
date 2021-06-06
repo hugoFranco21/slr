@@ -9,3 +9,6 @@ rm -r build > /dev/null 2>&1
 mkdir build
 javac -d build/ @sources.txt
 java -classpath build/ project.Main $1
+mkdir output > /dev/null 2>&1
+mv *.html output/.
+cp -r output/ /mnt/c/users/phantom/desktop
