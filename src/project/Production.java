@@ -28,6 +28,15 @@ public class Production {
         this.rightSide.add(rightSide);
     }
 
+    public static Production copy(Production p){
+        Production newProd = new Production();
+        newProd.leftSide = p.getLeftSide();
+        for(String s : p.getRightSide()){
+            newProd.rightSide.add(s);
+        }
+        return newProd;
+    }
+
     /**
      * Construction of the production class, this method receives the full production from 
      * the input file
@@ -95,12 +104,20 @@ public class Production {
         return this.leftSide;
     }
 
+    public void setLeftSide(String s){
+        this.leftSide = s;
+    }
+
     /**
      * This method returns the right side of the production
      * @return LinkedList<String>
      */
     public LinkedList<String> getRightSide(){
         return this.rightSide;
+    }
+
+    public void setRightSide(LinkedList<String> rightSide){
+        this.rightSide = rightSide;
     }
     
     public String getElementRightOfSymbol(String s){

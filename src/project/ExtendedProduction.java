@@ -10,10 +10,14 @@ public class ExtendedProduction {
      * Constructor for an extended production
      * @param prod The normal production
      */
-    public ExtendedProduction(Production prod){
+    public ExtendedProduction(final Production prod){
         this.leftSide = prod.getLeftSide();
         this.rightSide = prod.getRightSide();
         this.rightSide.addFirst(".");
+    }
+
+    public ExtendedProduction(){
+        this.rightSide = new LinkedList<>();
     }
 
     /**
@@ -53,20 +57,24 @@ public class ExtendedProduction {
      * @return ExtendedProduction
      */
     public ExtendedProduction advancePeriod() {
-        ExtendedProduction eprod;
-        try {
-            eprod =  (ExtendedProduction) this.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
+        ExtendedProduction eprod = new ExtendedProduction();
+        eprod = ExtendedProduction.copy(this);
         if(eprod.isPeriodLast()){
             return eprod;
         } else {
-            eprod.getRightSide().add(eprod.getPeriodIndex() + 1, ".");
+            eprod.getRightSide().add(eprod.getPeriodIndex() + 2, ".");
             eprod.getRightSide().removeFirstOccurrence(".");
             return eprod;
         }
+    }
+
+    public static ExtendedProduction copy(ExtendedProduction ex) {
+        ExtendedProduction eprod = new ExtendedProduction();
+        eprod.leftSide = ex.getLeftSide();
+        for(String s : ex.getRightSide()){
+            eprod.rightSide.add(s);
+        }
+        return eprod;
     }
 
     /**

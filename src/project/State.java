@@ -3,7 +3,7 @@ package project;
 public class State {
     private Kernel kernel;
     private Closure closure;
-    private Boolean isAcceptance;
+    private Boolean isAcceptance = false;
 
     public State(){}
 
@@ -44,9 +44,9 @@ public class State {
     @Override
     public String toString(){
         StringBuilder bobTheBuilder = new StringBuilder();
-        bobTheBuilder.append(kernel.toString());
-        bobTheBuilder.append(closure.toString());
-        bobTheBuilder.append("This state is " + (this.isAcceptance ? "" : "NOT ") + "of acceptance");
+        bobTheBuilder.append((this.kernel != null ? kernel.toString() : "\n"));
+        bobTheBuilder.append((this.closure != null ? closure.toString() : "\n"));
+        bobTheBuilder.append("This state is " + (this.isAcceptance ? "" : "NOT ") + "of acceptance\n");
         return bobTheBuilder.toString();
     }
 
