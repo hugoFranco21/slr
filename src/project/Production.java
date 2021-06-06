@@ -28,6 +28,12 @@ public class Production {
         this.rightSide.add(rightSide);
     }
 
+    /**
+     * This method creates a copy of the paremeter object, this to avoid
+     * side effects
+     * @param p - Production to be copied
+     * @return Production - A production with the same data
+     */
     public static Production copy(Production p){
         Production newProd = new Production();
         newProd.leftSide = p.getLeftSide();
@@ -84,6 +90,7 @@ public class Production {
 
     /**
      * This method prints the production
+     * @return String - The production in nice printable form
      */
     @Override
     public String toString() {
@@ -104,6 +111,10 @@ public class Production {
         return this.leftSide;
     }
 
+    /**
+     * Setter for the left side of the production
+     * @param s
+     */
     public void setLeftSide(String s){
         this.leftSide = s;
     }
@@ -116,10 +127,21 @@ public class Production {
         return this.rightSide;
     }
 
+    /**
+     * Setter for the right side of the production
+     * @param rightSide
+     */
     public void setRightSide(LinkedList<String> rightSide){
         this.rightSide = rightSide;
     }
     
+    /**
+     * This function gets the elements that are in the right
+     * side of the production after a given element. This is useful
+     * to find the follows.
+     * @param s String the element to use as reference
+     * @return String - the element that comes after the input
+     */
     public String getElementRightOfSymbol(String s){
         Integer index = this.getRightSide().indexOf(s);
         if(index == this.getRightSide().size() - 1){

@@ -16,6 +16,9 @@ public class ExtendedProduction {
         this.rightSide.addFirst(".");
     }
 
+    /**
+     * Default constructor for the ExtendedProduction class
+     */
     public ExtendedProduction(){
         this.rightSide = new LinkedList<>();
     }
@@ -68,6 +71,11 @@ public class ExtendedProduction {
         }
     }
 
+    /**
+     * Method to copy the content of an ExtendedProduction to a different object
+     * @param ex - ExtendedProduction to be copied
+     * @return ExtendedProduction - The copy of the parameter
+     */
     public static ExtendedProduction copy(ExtendedProduction ex) {
         ExtendedProduction eprod = new ExtendedProduction();
         eprod.leftSide = ex.getLeftSide();
@@ -87,6 +95,9 @@ public class ExtendedProduction {
         return this.getRightSide().get(this.getPeriodIndex() + 1);
     }
 
+    /**
+     * Method to get the extended production as a Java String
+     */
     @Override
     public String toString(){
         StringBuilder bobTheBuilder = new StringBuilder();

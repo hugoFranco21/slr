@@ -112,6 +112,11 @@ public class Glc {
         }
     }
 
+    /**
+     * This method returns every production that has the parameter s in the left side
+     * @param s String
+     * @return HashSet<Production>
+     */
     public HashSet<Production> getProductionStartingWith(String s){
         HashSet<Production> hs = new HashSet<>();
         for(Production p : this.getProductions().values()){
@@ -122,6 +127,12 @@ public class Glc {
         return hs;
     }
 
+    /**
+     * This method returns every production that contain the parameter s in 
+     * the right side of the production
+     * @param s String
+     * @return HashSet<Production>
+     */
     public HashSet<Production> getProductionsWithSymbolOnRight(String s){
         HashSet<Production> hs = new HashSet<>();
         for(Production p : this.getProductions().values()){
@@ -132,6 +143,11 @@ public class Glc {
         return hs;
     }
 
+    /**
+     * This function computes the first of every non terminal, it calls the helper function 
+     * getFirst()
+     * @throws NotAnElementException
+     */
     public void computeFirst() throws NotAnElementException{
         this.first = new HashMap<>();
         for(String s : this.nonTerminals){
@@ -146,6 +162,14 @@ public class Glc {
         }
     }
     
+    /**
+     * This method receives a String s, and returns its first, if the element is a terminal
+     * it returns itself in a HashSet, if it's a non terminal it checks for its own first, 
+     * and if it has another nonterminal then it checks for the first of that element recursively
+     * @param s String
+     * @return HashSet<String>
+     * @throws NotAnElementException When it searches for an element not in the grammar
+     */
     public HashSet<String> getFirst(String s) throws NotAnElementException {
         if(this.nonTerminals.contains(s)){
             if(this.first.get(s) != null){
@@ -166,6 +190,11 @@ public class Glc {
         }
     }
 
+    /**
+     * This function computes the follows of every non terminal, it calls the helper function 
+     * getFollows()
+     * @throws NotAnElementException
+     */
     public void computeFollows() throws NotAnElementException{
         this.follows = new HashMap<>();
         for(String s : this.nonTerminals){
@@ -192,6 +221,15 @@ public class Glc {
         }
     }
 
+    /**
+     * This method receives a String s, and returns its follows. If it exists already it is returned, if not
+     * it first checks to see if there are productions where the String s is on the left side of another element 
+     * within the right side, if there is it adds the first of the next element, if there isn't it gets the follow
+     * of the left side element of the production
+     * @param s String
+     * @return HashSet<String>
+     * @throws NotAnElementException When it searches for an element not in the grammar
+     */
     public HashSet<String> getFollows(String s) throws NotAnElementException {
         if(this.nonTerminals.contains(s)){
             if(this.follows.get(s) != null){
