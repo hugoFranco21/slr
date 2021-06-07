@@ -6,6 +6,7 @@ import java.util.Map;
 import project.exceptions.IncorrectGrammarException;
 import project.exceptions.NotAnElementException;
 
+import java.time.chrono.ThaiBuddhistDate;
 import java.util.HashMap;
 
 public class Glc {
@@ -157,7 +158,9 @@ public class Glc {
         for(String s : this.nonTerminals){
             HashSet<String> aux = new HashSet<>();
             for(Production p : this.getProductionStartingWith(s)){
-                aux.addAll(this.getFirst(p.getRightSide().getFirst()));
+                if(!p.getRightSide().getFirst().equals(s)){
+                    aux.addAll(this.getFirst(p.getRightSide().getFirst()));
+                }
             }
             this.first.put(s, aux);
         }
@@ -290,6 +293,7 @@ public class Glc {
             for(String aux : this.first.get(s)){
                 bobTheBuilder.append(aux + ", ");
             }
+            bobTheBuilder.delete(bobTheBuilder.length() - 2, bobTheBuilder.length());
             bobTheBuilder.append(" } \n");
         }
         bobTheBuilder.append("Follows: \n");
@@ -298,6 +302,7 @@ public class Glc {
             for(String aux : this.follows.get(s)){
                 bobTheBuilder.append(aux + ", ");
             }
+            bobTheBuilder.delete(bobTheBuilder.length() - 2, bobTheBuilder.length());
             bobTheBuilder.append(" } \n");
         }
         return bobTheBuilder.toString();
