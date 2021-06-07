@@ -11,7 +11,8 @@ Proyecto Final para la materia de Compiladores
 - Y adentro solo se necesita usar el script de run.sh. Se le pueden otorgar permisos de ejecución o llamarlo con algún shell. FILE_NAME se debe reemplazar por el nombre del archivo con la gramática, existe un ejemplo en la carpeta input llamado file1.txt
 
 Escenario 1:
-> chmod u+x run.sh
+> chmod u+x run.sh  
+
 > ./run.sh FILE_NAME
 
 Escenario 2:
