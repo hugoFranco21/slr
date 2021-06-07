@@ -5,12 +5,21 @@ public class LRTable {
     private GoToTable goToTable;
     private ActionTable actionTable;
 
+    /**
+     * Constructor for the LR Table class, it receives the grammar, the action table and the go to table
+     * @param g
+     * @param goToTable
+     * @param actionTable
+     */
     public LRTable(Glc g, GoToTable goToTable, ActionTable actionTable){
         this.grammar = g;
         this.goToTable = goToTable;
         this.actionTable = actionTable;
     }
 
+    /**
+     * This method creates the HTML to present the LR Table
+     */
     public String toHTMl(){
         StringBuilder bobTheBuilder = new StringBuilder();
         bobTheBuilder.append("<table style=\"border: 1px solid black; background-color: WhiteSmoke;\">\n");

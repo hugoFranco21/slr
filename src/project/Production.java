@@ -151,6 +151,11 @@ public class Production {
         }
     }
 
+    /**
+     * Create a copy of a production from an extended production
+     * @param ex ExtendedProduction
+     * @return Production
+     */
     public static Production copyFromExtended(ExtendedProduction ex){
         Production p = new Production();
         ExtendedProduction origin = ExtendedProduction.copy(ex);

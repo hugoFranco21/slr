@@ -152,7 +152,7 @@ public class Glc {
     public void computeFirst() throws NotAnElementException{
         this.first = new HashMap<>();
         for(String s : this.nonTerminals){
-            this.first.put(s, null);
+            this.first.put(s, new HashSet<>());
         }
         for(String s : this.nonTerminals){
             HashSet<String> aux = new HashSet<>();
@@ -173,7 +173,7 @@ public class Glc {
      */
     public HashSet<String> getFirst(String s) throws NotAnElementException {
         if(this.nonTerminals.contains(s)){
-            if(this.first.get(s) != null){
+            if(this.first.get(s).size() != 0){
                 return this.first.get(s);
             } else {
                 HashSet<String> aux = new HashSet<>();
