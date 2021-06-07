@@ -22,3 +22,8 @@ Escenario 2:
 - Agregar una linea en el script de run.sh que copie la salida de la carpeta output/ al ambiente windows para poder 
 verlo en el navegador.
 > cp -r output/ /mnt/c/users/{$USER}/desktop
+
+### Problemas conocidos
+- Si bien la gramática de input/file1.txt la resuelve sin problema, la de input/file2.txt tiene un error al generar la table de SLRClosure, la gramática incluyendo first y follows está bien, pero no genera bien la tabla
+- En general, gramáticas que tengan left-recursion no las puede resolver correctamente.
+- Debería poder generar las tablas para cualquier gramática LL.
